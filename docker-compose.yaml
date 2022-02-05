@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: db-mysql-mp
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - db-mysql-mp:/var/lib/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=mp
+volumes:
+  db-mysql-mp:

@@ -1,6 +1,5 @@
 package com.service.mp.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +29,7 @@ public class Fiscalia {
     @Pattern(regexp = "\\d{4}\\-\\d{4}$", message = "formato debe ser 0000-0000")
     private String telefono;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ubicacion_id")
     private Ubicacion ubicacion;
 

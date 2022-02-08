@@ -1,5 +1,6 @@
 package com.service.mp.Controller;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +36,9 @@ public class UbicacionController {
     @Autowired
     private FiscaliaRepository fiscaliaRepository;
 
-    @PostMapping("/add")
-    ResponseEntity<Object> addUbicacion(@Valid @RequestBody Ubicacion ubicacion) {
+    @PostMapping("/add") 
+    @CrossOrigin(origins = "http://localhost:3000")
+    ResponseEntity<Object> addUbicacion(@Valid @RequestBody Ubicacion ubicacion) throws ParseException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("timestamp", new Date());
         map.put("status", 200);
@@ -55,6 +58,7 @@ public class UbicacionController {
     }
 
     @PutMapping("/edit/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<Object> editUbicacion(@Valid @RequestBody Ubicacion editUbicacion, @PathVariable int id) {
         Optional<Ubicacion> optionalUbicacion = ubicacionRepository.findById(id);
 
@@ -75,11 +79,14 @@ public class UbicacionController {
         Ubicacion ubicacion = ubicacionRepository.findById(id).get();
 
         ubicacion.setName(editUbicacion.getName());
+        ubicacionRepository.setUbicacion(ubicacion.getName(), ubicacion.getId());
+
         map.put("data", ubicacion);
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<Object> getUbicacion(@RequestParam(value = "name", required = false) String name) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("timestamp", new Date());
@@ -104,6 +111,7 @@ public class UbicacionController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<Object> deleteUbicacion(@PathVariable int id) {
         boolean isExistsInFiscalia = fiscaliaRepository.countByUbicacionId(id) != 0;
 

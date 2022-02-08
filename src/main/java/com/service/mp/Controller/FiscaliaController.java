@@ -13,6 +13,7 @@ import com.service.mp.repository.FiscaliaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class FiscaliaController {
     FiscaliaRepository fiscaliaRepository;
 
     @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<Object> addFiscalia(@Valid @RequestBody Fiscalia fiscalia) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("timestamp", new Date());
@@ -51,6 +53,7 @@ public class FiscaliaController {
     }
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<Object> getFiscalia(@RequestParam(value = "name", required = false) String name) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("timestamp", new Date());
@@ -74,6 +77,7 @@ public class FiscaliaController {
     }
 
     @PutMapping("/edit/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<Object> editUbicacion(@Valid @RequestBody Fiscalia editFiscalia, @PathVariable int id) {
         Optional<Fiscalia> optionalFiscalia = fiscaliaRepository.findById(id);
 
@@ -113,6 +117,7 @@ public class FiscaliaController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<Object> deleteFiscalia(@PathVariable int id) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("timestamp", new Date());

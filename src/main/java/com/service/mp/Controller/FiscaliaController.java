@@ -39,15 +39,15 @@ public class FiscaliaController {
         map.put("status", 200);
         map.put("message", "Guardado correctamente.");
 
-        // try {
+        try {
             map.put("data", fiscaliaRepository.save(fiscalia));
-        // } catch (Exception e) {
-        //     map.put("status", 400);
-        //     map.put("message", "Error al guardar.");
-        //     map.put("data", null);
+        } catch (Exception e) {
+            map.put("status", 400);
+            map.put("message", "Error al guardar.");
+            map.put("data", null);
 
-        //     return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
-        // }
+            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
